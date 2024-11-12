@@ -3,9 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>{% block title %} base {% endblock %}</title>
   </head>
   <body>
+    {%block content %}
     <h1>hello world</h1>
     <h2>this is base html</h2>
     <p>
@@ -16,5 +17,6 @@
       Reprehenderit quaerat sapiente, placeat quos officia ad eaque adipisci
       excepturi eius necessitatibus voluptatum vero ullam?
     </p>
+    {%endblock%}
   </body>
 </html>
