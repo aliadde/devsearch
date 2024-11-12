@@ -2,4 +2,17 @@
 
 {% block title %} projects {% endblock %}
 
-{% block content %} projects {% endblock %}
+{% block content %} 
+      <h1> Projects all in here </h1>
+      <div>
+            {% for item in projects %}
+            <h2> {{item.title}} </h2>
+            <hr />
+            <div> 
+                  id = <a href="/single{{item.id}}">  {{item.id}} </a>
+            </div>      
+            {% endfor %}
+      </div>      
+
+
+{% endblock %}

@@ -1,4 +1,21 @@
 {% extends 'projects/base.html' %}
 {% block title %} signle project {% endblock %}
 
-{% block content %} signle project {% endblock %}
+{% block content %}
+      <h1>  signle project </h1>
+      <ul> 
+            <hr /> 
+            <li> 
+                  <p>
+                        name of project:  {{ project.title}} 
+                  </p>
+            </li>
+            <hr />
+            <li> 
+                  <p>
+                        id of project : {{project.id }}
+                  </p>
+            </li>
+            
+      </ul>
+ {% endblock %}
