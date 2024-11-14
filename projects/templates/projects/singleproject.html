@@ -3,17 +3,26 @@
 
 {% block content %}
       <h1>  signle project </h1>
+      <h2>name of project:  {{ project.title}}  </h2>
+      <h2> description : </h2>
+      <p> {{project.description }}  </p>
       <ul> 
             <hr /> 
-            <li> 
-                  <p>
-                        name of project:  {{ project.title}} 
-                  </p>
-            </li>
             <hr />
             <li> 
                   <p>
                         id of project : {{project.id }}
+                  </p>
+            </li>
+            <li> 
+                  <p>
+                        tags:
+                        <ul> 
+                              {%for tag in tags %}
+                                    <li>{{tag}} </li>
+                                    <hr />
+                              {% endfor %}
+                        </ul>
                   </p>
             </li>
             
