@@ -19,3 +19,7 @@ def singlepage(request, id ):
       return render(request, 'projects/singleproject.html',{'project': project ,'tags':tags} )
 
 
+def createProject(request ):
+
+      context = {}
+      return render(request , 'projects/project_form.html', context)

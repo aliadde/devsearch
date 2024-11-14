@@ -4,19 +4,44 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title %} base {% endblock %}</title>
+    <style>
+      body {
+        margin: 0%;
+        padding: 0%;
+        box-sizing: border-box;
+      }
+      .navbar {
+        background-color: rgb(99, 125, 219);
+        min-height: 50px;
+        width: 100vw;
+        font-size: larger;
+        font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif ;
+      }
+      .navbar  ul {
+        list-style-type: none;
+        display:flex;
+        gap: 20px;
+      
+      }
+      .navbar ul li {
+        padding-top: 10px ;
+      }
+      .navbar ul li a {
+        text-decoration: none;
+        color: #ffff;
+        padding:10px 20px; 
+      }
+    </style>
   </head>
   <body>
+    <nav class="navbar">
+      <ul>
+        <li><a href="{% url 'projects'%}" > projects </a></li>
+        <li><a href="{% url 'create-project' %}" > create form </a></li>
+      </ul>
+    </nav>
     {%block content %}
-    <h1>hello world</h1>
-    <h2>this is base html</h2>
-    <p>
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusamus
-      perferendis tempora labore quis earum nulla praesentium voluptatum, esse
-      neque distinctio consectetur aspernatur quasi accusantium ad molestiae
-      temporibus aliquam fugit ullam, est ratione tenetur, rerum eligendi.
-      Reprehenderit quaerat sapiente, placeat quos officia ad eaque adipisci
-      excepturi eius necessitatibus voluptatum vero ullam?
-    </p>
+  
     {%endblock%}
   </body>
 </html>

@@ -6,11 +6,12 @@
       <h1> Projects all in here </h1>
       <div>
             {% for item in projects %}
-            <h2> {{item.title}} </h2>
+            <h2 style="color: blue;"> <a href="/single{{item.id}}" style="text-decoration: none;" >{{item.title}}</a> </h2>
+      
+            <!-- <div > 
+                  id = <a > {{item.id}} </a>
+            </div>       -->
             <hr />
-            <div> 
-                  id = <a href="/single{{item.id}}">  {{item.id}} </a>
-            </div>      
             {% endfor %}
       </div>      
 

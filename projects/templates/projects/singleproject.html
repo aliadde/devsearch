@@ -21,6 +21,9 @@
                               {%for tag in tags %}
                                     <li>{{tag}} </li>
                                     <hr />
+                                    {%if tag == 'none' %}
+                                          no tag 
+                                    {% endif %}
                               {% endfor %}
                         </ul>
                   </p>
