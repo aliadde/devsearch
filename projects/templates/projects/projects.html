@@ -8,9 +8,13 @@
             {% for item in projects %}
             <h2 style="color: blue;"> <a href="/single{{item.id}}" style="text-decoration: none;" >{{item.title}}</a> </h2>
       
-            <!-- <div > 
-                  id = <a > {{item.id}} </a>
-            </div>       -->
+            <div > 
+                  <a href="{% url 'update-project' item.id %}" class='sub' > edit </a>
+            </div>    
+            <br />
+            <div > 
+                  <a href="{% url 'delete-project' item.id %}" class='sub' > Delete </a>
+            </div>    
             <hr />
             {% endfor %}
       </div>      

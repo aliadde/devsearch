@@ -2,10 +2,11 @@
 
 {% block content %} 
       <h1> project form  </h1>
-      <form action="form" method="post">
+      <form action="" method="POST">
             {% csrf_token %}
-            
-            <input type="submit" value="submit">
-            
+            {{form}}
+            <div >
+                  <input class="sub" type="submit" value="submit">
+            </div>
       </form>
 {% endblock  %}
