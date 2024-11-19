@@ -3,21 +3,22 @@
 {% load static %}
 {% block title %} projects {% endblock %}
 {% block content %} 
-      <h1> Projects all in here </h1>
-      <div>
+<div class="block">
+      <div class="content-block">
+            <h1> Projects all in here </h1>
             {% for item in projects %}
-            <h2 style="color: blue;"> <a href="/single{{item.id}}" style="text-decoration: none;" >{{item.title}}</a> </h2>
+            <h2> <a href="/single{{item.id}}" class='item-title'>{{item.title}}</a> </h2>
       
-            <div class="link"> 
+            <div > 
                   <a href="{% url 'update-project' item.id %}" class='link' > edit </a>
             </div>    
             <br />
-            <div class="link"> 
+            <div > 
                   <a href="{% url 'delete-project' item.id %}" class='link' > Delete </a>
             </div>    
             <hr />
             {% endfor %}
       </div>      
-
+</div>
 
 {% endblock %}

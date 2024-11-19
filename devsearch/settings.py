@@ -1,3 +1,4 @@
+import os
 
 
 from pathlib import Path
@@ -108,18 +109,18 @@ USE_TZ = True
 import os 
 #  در هر حال باید url باشه ها . حذفش نکن هرگز
 
-STATIC_URL = 'static/'
-
-# Specify the root folder containing your static files
-import os
-
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+STATIC_URL = '/static/'
+MEDIA_URL = '/images/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
+    BASE_DIR / 'static'
 ]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images') 
+      
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+ 

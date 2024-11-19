@@ -9,6 +9,8 @@ class Project(models.Model):
       #blank: for the django  null: is for database requirement
       description = models.TextField(null=True, blank=True)
       
+      # image 
+      featured_image = models.ImageField( null=True, blank=True , default='default.jpg')
       # demo link is for user has deployed their project to the internet and have their link for us just to see demo
       demo_link = models.CharField(max_length=2000 ,null=True, blank=True)
       

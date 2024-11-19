@@ -11,13 +11,17 @@
     <title>{% block title %} base {% endblock %}</title>
   </head>
   <body>
-    <nav class="navba r">
+    <nav class="navbar">
       <ul>
+        <img src="{% static 'images/logo.svg' %}">
         <li><a href="{% url 'projects'%}"> projects </a></li>
         <li><a href="{% url 'create-project' %}"> create form </a></li>
       </ul>
     </nav>
-    {%block content %}
-     {%endblock%}
+    <div class="block">
+      {% block content %}
+          
+      {% endblock %}
+    </div>
   </body>
 </html>
