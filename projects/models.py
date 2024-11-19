@@ -16,7 +16,7 @@ class Project(models.Model):
       source_link = models.CharField(max_length=2000 ,null=True, blank=True)
       
       # refrence the tag to project 
-      tags = models.ManyToManyField('Tag',blank=True, null=True)
+      tags = models.ManyToManyField('Tag')
 
       # Vote has be store in project
       vote_total = models.IntegerField(default=0,null=True,blank=True)

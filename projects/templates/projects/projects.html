@@ -1,19 +1,19 @@
 {% extends 'projects/base.html' %}
 
+{% load static %}
 {% block title %} projects {% endblock %}
-
 {% block content %} 
       <h1> Projects all in here </h1>
       <div>
             {% for item in projects %}
             <h2 style="color: blue;"> <a href="/single{{item.id}}" style="text-decoration: none;" >{{item.title}}</a> </h2>
       
-            <div > 
-                  <a href="{% url 'update-project' item.id %}" class='sub' > edit </a>
+            <div class="link"> 
+                  <a href="{% url 'update-project' item.id %}" class='link' > edit </a>
             </div>    
             <br />
-            <div > 
-                  <a href="{% url 'delete-project' item.id %}" class='sub' > Delete </a>
+            <div class="link"> 
+                  <a href="{% url 'delete-project' item.id %}" class='link' > Delete </a>
             </div>    
             <hr />
             {% endfor %}

@@ -1,0 +1,40 @@
+body {
+  margin: 0%;
+  padding: 0%;
+  box-sizing: border-box;
+}
+h1 {
+  color: red;
+  font-size: 40px;
+}
+
+.navbar {
+  background-color: rgb(99, 125, 219);
+  min-height: 50px;
+  width: 100vw;
+  font-size: larger;
+  font-family: "Gill Sans", sans-serif;
+}
+.navbar ul {
+  list-style-type: none;
+  display: flex;
+  gap: 20px;
+}
+.navbar ul li {
+  padding-top: 10px;
+}
+.navbar ul li a {
+  text-decoration: none;
+  color: #ffff;
+  padding: 10px 20px;
+}
+.sub {
+  width: 150px;
+  height: 100px;
+  margin: 20px;
+  padding: 23px;
+}
+.sub:hover {
+  color: black;
+  background: white;
+}
