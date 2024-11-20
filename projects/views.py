@@ -5,7 +5,7 @@ from .forms import ProjectForm
 # Create your views here.
 
 def base(request):
-      return render(request, 'projects/base.html' )
+      return render(request, 'base.html' )
 
 def projects(request):
       projects = Project.objects.all()

@@ -46,7 +46,9 @@ ROOT_URLCONF = 'devsearch.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+              os.path.join(BASE_DIR , 'templates'),
+              ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -107,7 +109,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 # os is not nessery when y
-import os 
 
 # to set url for image or static files
 STATIC_URL = '/static/'
