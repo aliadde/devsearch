@@ -2,7 +2,6 @@ from django.shortcuts import render,redirect
 from .models import Project
 # create project with pojectform
 from .forms import ProjectForm
-# Create your views here.
 
 def base(request):
       return render(request, 'base.html' )
@@ -11,7 +10,7 @@ def projects(request):
       projects = Project.objects.all()
 
       context = {'projects':projects}
-      return render(request, 'projects/projects.html', context )
+      return render(request,'projects/projects.html', context )
       
 def singlepage(request, id ):
       # method get : get that projects has that id 

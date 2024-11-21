@@ -46,10 +46,8 @@ ROOT_URLCONF = 'devsearch.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-              os.path.join(BASE_DIR , 'templates'),
-              ],
-        'APP_DIRS': True,
+        'DIRS': [BASE_DIR / "templates"],  # اشاره به فولدر templates در root
+        'APP_DIRS': True,  # فعال‌سازی فولدر templates داخل هر اپ
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
