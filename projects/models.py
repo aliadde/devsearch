@@ -1,8 +1,13 @@
 from django.db import models
 import uuid
+from users.models import Profile
 # Create your models here.
 
 class Project(models.Model):
+      # it gonna inherite username from profile db tb 
+      owner = models.ForeignKey(Profile,null=True,
+                                 blank=True, on_delete= models.SET_NULL) 
+      
       # title of the post 
       title = models.CharField(max_length=2000)
 
