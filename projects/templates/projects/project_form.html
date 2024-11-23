@@ -1,12 +1,31 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %} 
-      <h1> project form  </h1>
-      <form action="" method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{form}}
-            <div >
-                  <input class="sub" type="submit" value="submit">
-            </div>
-      </form>
+      <!-- Main Section -->
+    <main class="formPage my-xl">
+      <div class="content-box">
+          <div class="formWrapper">
+              <a class="backButton" href="#"><i class="im im-angle-left"></i></a>
+              <br>
+
+              <form class="form" method="POST" enctype="multipart/form-data">
+                  {% csrf_token %}
+
+
+                  {% for field in form %}
+                    <!-- Input:Text -->
+                    <div class="form__field">
+                        <label for="formInput#text">{{field.label}}: </label>
+                          {{field}}
+                    </div>
+                  {% endfor %}
+                  <input class="btn btn--sub btn--lg  my-md" type="submit" value="Submit" />
+              </form>
+          </div>
+      </div>
+  </main>
 {% endblock  %}
+
+  {% comment %} <input class="input input--text" id="formInput#text" type="text" 
+                      name="text"
+                          placeholder="Enter text" /> {% endcomment %}
