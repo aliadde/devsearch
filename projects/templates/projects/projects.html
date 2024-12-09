@@ -39,7 +39,7 @@
       <div class="grid grid--three">
         {% for project in projects %}
         <div class="column">
-          <d class="card project">
+          <div class="card project">
             <a href="/single{{project.id}}" class="project">
               <img
                 class="project__thumbnail"
@@ -51,7 +51,7 @@
                   {{project.title}}
                 </h3>
                 <p>
-                  <a class="project__author" href="profile.html"
+                  <a class="project__author" href="/user-profile/{{project.owner.id}}"
                     >By {{project.owner.name }}</a
                   >
                 </p>
@@ -72,7 +72,7 @@
                 </div>
               </div>
             </a>
-          </d iv>
+          </div>
         </div>
         {% endfor %}
       </div>

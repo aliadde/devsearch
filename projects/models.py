@@ -6,9 +6,9 @@ from users.models import Profile
 class Project(models.Model):
       # it gonna inherite username from profile db tb 
       owner = models.ForeignKey(Profile,null=True,
-                                 blank=True, on_delete= models.SET_NULL) 
+                           blank=True, on_delete= models.SET_NULL) 
       
-      # title of the post 
+      # title of the project 
       title = models.CharField(max_length=2000)
 
       #blank: for the django  null: is for database requirement

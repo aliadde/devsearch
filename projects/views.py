@@ -2,13 +2,11 @@ from django.shortcuts import render,redirect
 from .models import Project
 # create project with pojectform
 from .forms import ProjectForm
-
 def base(request):
       return render(request, 'base.html' )
 
 def projects(request):
       projects = Project.objects.all()
-
       context = {'projects':projects}
       return render(request,'projects/projects.html', context )
       
