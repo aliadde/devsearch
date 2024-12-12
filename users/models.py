@@ -1,7 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 import uuid
-# Skill is child of Profile
+
+# skill is child of profile
 class Profile(models.Model):
       user = models.OneToOneField(User, on_delete=models.CASCADE,       
             null=True, blank=True)
@@ -47,3 +48,5 @@ class Skill(models.Model):
                   
       def __str__(self):
             return str(self.name)
+
+
