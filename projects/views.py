@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from .models import Project
-# create project with pojectform
+from django.contrib.auth.decorators import login_required
 from .forms import ProjectForm
 def base(request):
       return render(request, 'base.html' )
@@ -17,6 +17,7 @@ def singlepage(request, id ):
       return render(request, 'projects/singleproject.html',{'project': project ,'tags':tags} )
 
 
+@login_required(login_url='/login')
 def createProject(request):
       form = ProjectForm() 
       if request.method == 'POST':
@@ -28,7 +29,7 @@ def createProject(request):
       context = {'form' : form}
       return render(request , 'projects/project_form.html', context)
 
-      
+@login_required(login_url='/login')
 def updateProject(request,pk):
       project = Project.objects.get(id=pk)
       form = ProjectForm(instance=project) 
@@ -41,7 +42,7 @@ def updateProject(request,pk):
       context = {'form' : form}
       return render(request , 'projects/project_form.html', context)
 
-
+@login_required(login_url='/login')
 def deleteProject(request, pk):
       project = Project.objects.get(id=pk)
       if request.method == 'POST':
