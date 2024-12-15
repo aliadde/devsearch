@@ -110,8 +110,10 @@ def userAccount(request):
       profile = request.user.profile
       if request.session :
             print("\n\n re  \t  ", request.session  )
-
+       
+      userprojects = profile.project_set.all()
       context = {
             'profile':profile,
+            'projects':userprojects,
       }
       return render(request,'users/account.html',context )
