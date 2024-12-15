@@ -3,8 +3,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
 from .models import Profile
 from django.contrib import messages
-
-
+from .forms import CustomUCF
 
       # log out
 def logOutPage(request):
@@ -22,6 +21,7 @@ def logOutPage(request):
 
       # log in 
 def loginPage(request):
+      page = 'login'
       if request.user.is_authenticated :
             return redirect('profiles')
       elif request.method == 'POST':
@@ -38,27 +38,59 @@ def loginPage(request):
             user = authenticate(request , username=username , password=password)
             if user is not None :
                   login(request,user)
+                  
                   return redirect('profiles')
             else:
                   messages.error(request ,'password or username dow not exist')
 
       return render(request, 'users/login_register.html',{})
 
+# register / sign up 
+def register(request):
+      if request.method == 'POST':
+            form = CustomUCF(request.POST)
+            if form.errors :
+                  for error in form.errors:
+                        
+                        print(error)
+            if form.is_valid() :
+                  # its not gonna save completly
+                  user = form.save(commit=False)
+                  # check no one in database with same username (lowercase)
+                  user.username = user.username.lower()
+                  # then save
+                  user.save()
 
+                  messages.success(request, 'User account created' )
+                  redirect('profiles')
+                  # then log in 
+                  login(request, user)
+                  messages.success(request,'An errror accure registeration')
+                  return redirect('profiles')
+            else:
+                  print('get request')
+                  
 
+      form = CustomUCF()
+      page = 'register'
+      context = {'page':page ,'form':form}
+      return render(request, 'users/login_register.html',context)
+
+      
+      
+      
+
+# profiles
 def profiles(request):
       profiles = Profile.objects.all()
       
       return render(request, 'users/profiles.html',{'profiles':profiles})
 
-def userprofile(request, pk):
       
+# single user profile
+def userprofile(request, pk):
       profile = Profile.objects.get(id=pk)
       skills = profile.skill_set.all()
-      # other way to fillter skills have description or not 
-      # have description
-      # => topskill = profile.skill_set.exclude(description__exact="")
-      # do not have description+
-
       context = {'profile':profile,'skills':skills }
+
       return render(request, 'users/user-profile.html', context)

@@ -20,7 +20,7 @@ class Profile(models.Model):
       bio = models.TextField(blank=True, null=True)
       
       profile_image = models.ImageField(blank=True,null=True,
-                        default='images/user-default.png', upload_to='profiles/')
+            default='user-default.png', upload_to='profiles/')
                         
       social_github  = models.CharField(max_length=200, blank=True, null=True)
       social_twitter = models.CharField(max_length=200, blank=True, null=True)

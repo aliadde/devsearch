@@ -1,15 +1,27 @@
 {% extends "base.html" %}
 
-
 {% block content %}
-<h1>ARE YOU SURE? </h1>
-<form action="" method="POST">
-      {% csrf_token %}
-      <!-- send post request -->
-      <input type="submit" value="logout">
-</form>
-<!-- send get request -->
-<button type="button"><a href="/">No</a></button>
-
+<div class="auth">
+      <div class="card">
+            <a href="/">
+                  <img src="static/images/icon.svg" alt="icon" />
+            </a>
+            <div class="auth__header text-center">
+                  <h3>ARE YOU SURE? </h3>
+            </div>
+            <form action="" method="POST" class="form auth__form">
+                  {% csrf_token %}
+                  <!--Log out -->
+                  <div class="auth__actions" style="justify-content: center;">
+                        <input class="btn btn--sub btn--lg" type="submit" value="Log Out" />
+                  </div>
+            </form>
+            <div class="auth__actions" style="justify-content: center;">
+                  <a href="/">
+                        <input class="btn btn--sub btn--lg" type="submit" value="Back" />
+                  </a>
+            </div>
+      </div>
+</div>
 
 {% endblock content %}

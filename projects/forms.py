@@ -24,8 +24,3 @@ class ProjectForm(forms.ModelForm):
                   )
 
 
-            # for single field adding class 
-            # self.fields['title'].widget.attrs.update({
-            #       'class':"input input--text" ,
-            #       id:"formInput#text" 
-            #       })
