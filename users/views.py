@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from .models import Profile
 from django.contrib import messages
 from .forms import CustomUCF
-
+from django.contrib.auth.decorators import login_required
       # log out
 def logOutPage(request):
       if not request.user.is_authenticated :
@@ -84,13 +84,34 @@ def register(request):
 def profiles(request):
       profiles = Profile.objects.all()
       
-      return render(request, 'users/profiles.html',{'profiles':profiles})
+      if request.user:
+            # if y=user logged in have to be remove from list of profiles
+            rm = request.user.username
+            # removing and set profiles again
+            profiles = profiles.exclude(name=rm)
+      
+      context = {'profiles':profiles } 
+      return render(request, 'users/profiles.html',context)
 
       
 # single user profile
 def userprofile(request, pk):
+
       profile = Profile.objects.get(id=pk)
       skills = profile.skill_set.all()
       context = {'profile':profile,'skills':skills }
 
       return render(request, 'users/user-profile.html', context)
+
+
+
+@login_required(login_url ='login') 
+def userAccount(request):
+      profile = request.user.profile
+      if request.session :
+            print("\n\n re  \t  ", request.session  )
+
+      context = {
+            'profile':profile,
+      }
+      return render(request,'users/account.html',context )
