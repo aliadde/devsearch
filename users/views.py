@@ -5,7 +5,8 @@ from .models import Profile
 from django.contrib import messages
 from .forms import CustomUCF
 from django.contrib.auth.decorators import login_required
-      # log out
+
+# log out
 def logOutPage(request):
       if not request.user.is_authenticated :
             return redirect('login')
@@ -18,8 +19,7 @@ def logOutPage(request):
       elif request.method == 'GET':
             return  render(request, 'users/logout.html')
 
-
-      # log in 
+# log in 
 def loginPage(request):
       page = 'login'
       if request.user.is_authenticated :
@@ -76,10 +76,6 @@ def register(request):
       context = {'page':page ,'form':form}
       return render(request, 'users/login_register.html',context)
 
-      
-      
-      
-
 # profiles
 def profiles(request):
       profiles = Profile.objects.all()
@@ -93,7 +89,6 @@ def profiles(request):
       context = {'profiles':profiles } 
       return render(request, 'users/profiles.html',context)
 
-      
 # single user profile
 def userprofile(request, pk):
 
@@ -102,9 +97,7 @@ def userprofile(request, pk):
       context = {'profile':profile,'skills':skills }
 
       return render(request, 'users/user-profile.html', context)
-
-
-
+# accout  user
 @login_required(login_url ='login') 
 def userAccount(request):
       profile = request.user.profile
