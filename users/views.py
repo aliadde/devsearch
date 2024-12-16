@@ -3,7 +3,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
 from .models import Profile
 from django.contrib import messages
-from .forms import CustomUCF
+from .forms import CustomUCF, ProfileForm
 from django.contrib.auth.decorators import login_required
 
 # log out
@@ -97,6 +97,7 @@ def userProfile(request, pk):
       context = {'profile':profile,'skills':skills }
 
       return render(request, 'users/user_profile.html', context)
+
 # accout  user
 @login_required(login_url ='login') 
 def userAccount(request):
@@ -112,9 +113,12 @@ def userAccount(request):
       return render(request,'users/account.html',context )
 
 
-
 @login_required(login_url ='login') 
 def editAccount(request):
-      context = {}
+      form = ProfileForm()
+      if request.method == 'PSOT':
+            mae = request.uer.username
+            
+      context = {'form':form}
       return render(request,'users/profile_form.html', context )
  

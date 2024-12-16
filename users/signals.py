@@ -24,6 +24,17 @@ def createprofile(sender , instance, created , **kwargs):
             )
 
 
+def updateUser(sender,instance ,created, **kwargs):
+      profile = instance
+      user = profile.user
+      # if user just updating information of profile
+      if not created :
+            user.first_name = profile.name
+            user.username = profile.username
+            user.save()
+            print(user.username) 
+
+
 def profileDelete(sender,instance , **kwargs ):
       user = instance.user
       user.delete()
@@ -37,10 +48,15 @@ def save(sender,instance,**kwargs):
 
       
       
-      
+#if any save happend 
 post_save.connect(save,sender=User)
+#if any save happend 
 post_save.connect(save,sender=Profile)
+# update profile page * user has been logged in *
+post_save.connect(updateUser,sender=Profile)
+# if user register
 post_save.connect(createprofile, sender=User)
+# if user delete
 post_delete.connect(profileDelete, sender=Profile)   
 
 
