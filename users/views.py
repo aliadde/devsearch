@@ -90,13 +90,13 @@ def profiles(request):
       return render(request, 'users/profiles.html',context)
 
 # single user profile
-def userprofile(request, pk):
+def userProfile(request, pk):
 
       profile = Profile.objects.get(id=pk)
       skills = profile.skill_set.all()
       context = {'profile':profile,'skills':skills }
 
-      return render(request, 'users/user-profile.html', context)
+      return render(request, 'users/user_profile.html', context)
 # accout  user
 @login_required(login_url ='login') 
 def userAccount(request):
@@ -110,3 +110,11 @@ def userAccount(request):
             'projects':userprojects,
       }
       return render(request,'users/account.html',context )
+
+
+
+@login_required(login_url ='login') 
+def editAccount(request):
+      context = {}
+      return render(request,'users/profile_form.html', context )
+ 
