@@ -65,9 +65,9 @@ def register(request):
                   redirect('profiles')
                   # then log in 
                   login(request, user)
-                  messages.success(request,'An errror accure registeration')
-                  return redirect('profiles')
-            else:
+                  messages.success(request,'User account created')
+                  return redirect('editaccount')
+            else:       
                   print('get request')
                   
 
@@ -115,10 +115,14 @@ def userAccount(request):
 
 @login_required(login_url ='login') 
 def editAccount(request):
-      form = ProfileForm()
-      if request.method == 'PSOT':
-            mae = request.uer.username
-            
+      profile = request.user.profile
+      form = ProfileForm(instance=profile)
+      if request.method == 'POST':
+            form = ProfileForm(request.POST,request.FILES,instance=profile)
+            if form.is_valid():
+                  form.save()
+                  return redirect('account')
+
       context = {'form':form}
       return render(request,'users/profile_form.html', context )
  

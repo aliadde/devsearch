@@ -33,7 +33,7 @@ def updateUser(sender,instance ,created, **kwargs):
             user.username = profile.username
             user.save()
             print(user.username) 
-
+ 
 
 def profileDelete(sender,instance , **kwargs ):
       user = instance.user
