@@ -2,19 +2,26 @@ from django.shortcuts import render,redirect
 from .models import Project
 from django.contrib.auth.decorators import login_required
 from .forms import ProjectForm
-from django.http import HttpResponseNotFound
+
 def notFoundPage(request, error):
       context = {'error':error}
       return render(request , '404page.html',context) 
 
 
 def base(request):
-      return render(request, 'base.html' )
+      try:
+            return render(request, 'base.html' )
+      except:
+            return notFoundPage(request=request,error="An Error for base.html views.py ")
 
 def projects(request):
-      projects = Project.objects.all()
-      context = {'projects':projects}
-      return render(request,'projects/projects.html', context )
+      try:
+            projects = Project.objects.all()
+            context = {'projects':projects}
+            return render(request,'projects/projects.html', context )
+      except:
+            return notFoundPage(request=request,error="An Error for projects views.py ")
+            
       
 def singlepage(request, id ):
       # method get : get that projects has that id 

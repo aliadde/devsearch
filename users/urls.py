@@ -8,4 +8,5 @@ urlpatterns = [
     path('userprofile/<str:pk>/', views.userProfile, name='userprofile'),
     path('account/',views.userAccount, name='account'),
     path('editaccount/',views.editAccount, name='editaccount'),
+    path('create-skill/',views.createSkill, name='createskill'),
 ]
