@@ -19,12 +19,15 @@ def singlepage(request, id ):
 
 @login_required(login_url='/login')
 def createProject(request):
+      profile = request.user.profile
       form = ProjectForm() 
       if request.method == 'POST':
             form = ProjectForm(request.POST, request.FILES)
             if form.is_valid():
-                  form.save()
-                  return redirect('projects')
+                  project = form.save(commit=False)
+                  project.owner = profile
+                  project.save()
+                  return redirect('account')
       
       context = {'form' : form}
       return render(request , 'projects/project_form.html', context)
@@ -37,7 +40,7 @@ def updateProject(request,pk):
             form = ProjectForm(request.POST, request.FILES ,instance=project)
             if form.is_valid():
                   form.save()
-                  return redirect('projects')
+                  return redirect('account')
       
       context = {'form' : form}
       return render(request , 'projects/project_form.html', context)
@@ -49,7 +52,7 @@ def deleteProject(request, pk):
       if request.method == 'POST':
             project.delete()
             print('Project Deleted ')
-            return redirect('projects')
+            return redirect('account')
             
       context = {'project':project}
       return render(request, 'projects/delete.html' ,context) 
