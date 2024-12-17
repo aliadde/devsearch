@@ -39,12 +39,14 @@ class Profile(models.Model):
 class Skill(models.Model):
       owner = models.ForeignKey(Profile,on_delete=models.CASCADE,
                   null=True, blank=True)
+                  
+      id = models.UUIDField(unique=True,
+                  default=uuid.uuid4,primary_key=True,editable=False)
+                  
       name = models.CharField(max_length=100 , null=True, blank=True)
       description = models.TextField(max_length=1000 , null=True, blank=True)
 
       created = models.DateTimeField(auto_now_add=True)
-      id = models.UUIDField(unique=True,
-                  default=uuid.uuid4,primary_key=True,editable=False)
                   
       def __str__(self):
             return str(self.name)

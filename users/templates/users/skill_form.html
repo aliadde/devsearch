@@ -8,7 +8,11 @@
           <div class="formWrapper">
               <a class="backButton" href="{% url 'account'  %}"><i class="fa fa-angle-left"></i></a>
               <br>
+              {%if page == 'update'%}
+              <h1>Edit Skill </h1>
+              {% else %}
               <h1>Create Skill </h1>
+              {% endif %}
               <form  method="POST">
                   {% csrf_token %}
                   {% for field in form %}
