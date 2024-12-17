@@ -2,9 +2,28 @@
 {% load static %}
 {% comment %} edit , Add , Delete skils {% endcomment %}
 {% block content %}
-<h1> create skill </h1>
-<form  method="POST">
-      {% csrf_token %}
-      <input type="submit" value="submit">
-</form>
+
+<main class="formPage my-xl card">
+      <div class="content-box">
+          <div class="formWrapper">
+              <a class="backButton" href="{% url 'account'  %}"><i class="fa fa-angle-left"></i></a>
+              <br>
+              <h1>Create Skill </h1>
+              <form  method="POST">
+                  {% csrf_token %}
+                  {% for field in form %}
+                        <!-- Input:Text -->
+                        <div class="form__field">
+                              <label for="formInput#text">{{field.label}} </label>
+                              {{field}}
+                              </div>
+                  {% endfor %}
+                  <input class="btn btn--sub btn--lg  my-md" type="submit" value="Submit" />
+            </form>
+            
+              
+
+          </div>
+      </div>
+  </main>
 {% endblock content %}

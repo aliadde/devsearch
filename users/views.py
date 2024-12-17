@@ -3,7 +3,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
 from .models import Profile
 from django.contrib import messages
-from .forms import CustomUCF, ProfileForm
+from .forms import CustomUCF, ProfileForm, SkillForm
 from django.contrib.auth.decorators import login_required
 
 # log out
@@ -128,5 +128,6 @@ def editAccount(request):
  
 @login_required(login_url ='login') 
 def createSkill(request):
-      context = {}
+      form = SkillForm()
+      context = {"form": form}
       return render(request, 'users/skill_form.html',context) 
