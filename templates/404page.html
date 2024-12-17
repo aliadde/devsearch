@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>404 Page Not Found</title>
+      <link rel="stylesheet" href="styles.css">
+      <style>
+            /* Global Styles */
+            * {
+                  margin: 0;
+                  padding: 0;
+                  box-sizing: border-box;
+                  font-family: Arial, sans-serif;
+            }
+
+            body {
+                  background-color: #f9f9f9;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  min-height: 100vh;
+            }
+
+            /* Container */
+            .container {
+                  text-align: center;
+                  background-color: #fff;
+                  padding: 30px;
+                  border-radius: 8px;
+                  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                  width: 90%;
+                  max-width: 700px;
+            }
+
+            /* Image Section */
+            .image-section .character-image {
+                  width: 400px;
+                  /* Adjust based on your image */
+                  margin: 0 auto 20px;
+                  display: block;
+            }
+
+            /* Text Section */
+            .text-section h1 {
+                  font-size: 2.2rem;
+                  margin-bottom: 15px;
+                  color: #333;
+            }
+
+            .text-section p {
+                  font-size: 1.5rem;
+                  color: #666;
+                  margin-bottom: 20px;
+                  line-height: 1.5;
+            }
+
+            /* Button Section */
+            .button-section .continue-button {
+                  display: inline-block;
+                  padding: 12px 20px;
+                  background-color: #007BFF;
+                  color: #fff;
+                  text-decoration: none;
+                  border-radius: 10px;
+                  font-size: 1.6rem;
+                  transition: background-color 0.3s;
+            }
+
+            .button-section .continue-button:hover {
+                  background-color: #0056b3;
+            }
+      </style>
+</head>
+
+<body>
+      <div class="container">
+            <!-- Image Placeholder -->
+            <div class="image-section">
+                  <img src="{% static 'images/404img.png'  %}" alt="404 Character" class="character-image">
+            </div>
+
+            <!-- Text Section -->
+            <div class="text-section">
+                  <h1>Oops! Page Not Found.</h1>
+                  <p>{{error}}.</p>
+            </div>
+
+            <!-- Button Section -->
+            <div class="button-section">
+                  <a href="/" class="continue-button">Back Home</a>
+            </div>
+      </div>
+</body>
+
+</html>

@@ -1,7 +1,6 @@
 :root {
   --color-sub: #2d2d39;
 }
-
 .btn--sub {
   background-color: var(--color-sub-light);
 }

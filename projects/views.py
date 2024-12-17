@@ -2,6 +2,12 @@ from django.shortcuts import render,redirect
 from .models import Project
 from django.contrib.auth.decorators import login_required
 from .forms import ProjectForm
+from django.http import HttpResponseNotFound
+def notFoundPage(request, error):
+      context = {'error':error}
+      return render(request , '404page.html',context) 
+
+
 def base(request):
       return render(request, 'base.html' )
 
@@ -34,21 +40,35 @@ def createProject(request):
 
 @login_required(login_url='/login')
 def updateProject(request,pk):
-      project = Project.objects.get(id=pk)
+      profile = request.user.profile
+      try:
+            project = profile.project_set.get(id=pk)
+            print('\n\n\n')
+            print('project ', project)
+      except:
+            return notFoundPage(request=request,error='you can not access to this project to edit, sorry dadasham')
+            
+      
       form = ProjectForm(instance=project) 
       if request.method == 'POST':
             form = ProjectForm(request.POST, request.FILES ,instance=project)
             if form.is_valid():
                   form.save()
                   return redirect('account')
-      
       context = {'form' : form}
       return render(request , 'projects/project_form.html', context)
-
+      
+            
 @login_required(login_url='/login')
 def deleteProject(request, pk):
-      
-      project = Project.objects.get(id=pk)
+      profile = request.user.profile
+      try:
+            project = profile.project_set.get(id=pk)
+            print('\n\n\n')
+            print('project ', project)
+      except:
+            return notFoundPage(request=request,error='you can not access to this project to delete, sorry dadasham')
+            
       if request.method == 'POST':
             project.delete()
             print('Project Deleted ')
