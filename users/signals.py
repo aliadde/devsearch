@@ -59,4 +59,3 @@ post_save.connect(createprofile, sender=User)
 # if user delete
 post_delete.connect(profileDelete, sender=Profile)   
 
-

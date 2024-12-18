@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from .models import Project
 from django.contrib.auth.decorators import login_required
 from .forms import ProjectForm
+from django.contrib import messages
 
 def notFoundPage(request, error):
       context = {'error':error}
@@ -14,6 +15,7 @@ def base(request):
       except:
             return notFoundPage(request=request,error="An Error for base.html views.py ")
 
+
 def projects(request):
       try:
             projects = Project.objects.all()
@@ -21,8 +23,8 @@ def projects(request):
             return render(request,'projects/projects.html', context )
       except:
             return notFoundPage(request=request,error="An Error for projects views.py ")
-            
-      
+
+
 def singlepage(request, id ):
       # method get : get that projects has that id 
       project = Project.objects.get(id=id)
@@ -79,7 +81,8 @@ def deleteProject(request, pk):
       if request.method == 'POST':
             project.delete()
             print('Project Deleted ')
+            messages.success(request, "project deleted")
             return redirect('account')
             
-      context = {'project':project}
-      return render(request, 'projects/delete.html' ,context) 
+      context = {'object':project}
+      return render(request, 'delete.html' ,context) 

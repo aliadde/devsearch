@@ -137,6 +137,7 @@ def createSkill(request):
                   skill = form.save(commit=False)
                   skill.owner = profile
                   skill.save()
+                  messages.success(request , 'New Skill Created ')
                   return redirect('account')
 
 
@@ -154,8 +155,20 @@ def updateSkill(request, pk):
             form = SkillForm(request.POST, instance= skill)
             if form.is_valid():
                   form.save()
+                  messages.success(request , 'Skill Updated')
                   return redirect('account')
 
 
       context = {"form": form ,'page':page}
       return render(request, 'users/skill_form.html',context) 
+
+@login_required(login_url ='login') 
+def deleteSkill(request, pk):
+      profile = request.user.profile
+      skill = profile.skill_set.get(id=pk)
+      if request.method == 'POST':
+            skill.delete()
+            messages.success(request, "skill deleted")
+            return redirect('account')
+      context = {'object':skill}
+      return render(request, 'delete.html', context)
