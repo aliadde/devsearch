@@ -5,6 +5,7 @@ from .models import Profile
 from django.contrib import messages
 from .forms import CustomUCF, ProfileForm, SkillForm
 from django.contrib.auth.decorators import login_required
+from .utils import searchProfiles
 
 # log out
 def logOutPage(request):
@@ -78,15 +79,8 @@ def register(request):
 
 # profiles
 def profiles(request):
-      profiles = Profile.objects.all()
-      
-      if request.user:
-            # if y=user logged in have to be remove from list of profiles
-            rm = request.user.username
-            # removing and set profiles again
-            profiles = profiles.exclude(name=rm)
-      
-      context = {'profiles':profiles } 
+      profiles , search_query = searchProfiles(request)
+      context = {'profiles':profiles, "search_query":search_query } 
       return render(request, 'users/profiles.html',context)
 
 # single user profile

@@ -1,9 +1,9 @@
 from django.shortcuts import render,redirect
-from .models import Project
+from .models import Project ,Tag
 from django.contrib.auth.decorators import login_required
 from .forms import ProjectForm
 from django.contrib import messages
-
+from .utils import searchProjects
 def notFoundPage(request, error):
       context = {'error':error}
       return render(request , '404page.html',context) 
@@ -17,12 +17,9 @@ def base(request):
 
 
 def projects(request):
-      try:
-            projects = Project.objects.all()
-            context = {'projects':projects}
-            return render(request,'projects/projects.html', context )
-      except:
-            return notFoundPage(request=request,error="An Error for projects views.py ")
+      projects, search_query = searchProjects(request)
+      context = {'projects':projects , 'search_query':search_query}
+      return render(request,'projects/projects.html', context )
 
 
 def singlepage(request, id ):
