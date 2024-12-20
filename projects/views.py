@@ -4,6 +4,11 @@ from django.contrib.auth.decorators import login_required
 from .forms import ProjectForm
 from django.contrib import messages
 from .utils import searchProjects
+from django.core.paginator import Paginator , PageNotAnInteger , EmptyPage # 2st = actually a TypeOfError. 3st = TypeOfError
+
+
+
+
 def notFoundPage(request, error):
       context = {'error':error}
       return render(request , '404page.html',context) 
@@ -17,8 +22,28 @@ def base(request):
 
 
 def projects(request):
-      projects, search_query = searchProjects(request)
-      context = {'projects':projects , 'search_query':search_query}
+      projects, search_query = searchProjects(request) # serch_query is content user searched in search bar 
+
+      results = 3 
+      page = request.GET.get('page') # get page number from front end 
+      paginator = Paginator(projects, results) # each page 3 project 
+      try: 
+            projects = paginator.page(page) # get projects of user choosed page
+
+      except PageNotAnInteger: # if user do not choose wich page 
+            # set default page to 1st page
+            
+            page = 1 
+            projects = paginator.page(page) # get projects of user choosed page
+      except EmptyPage : 
+            # if user search for page is not exist
+            page = paginator.num_pages # set page to last page
+            projects = paginator.page(page)
+
+      
+      context = {'projects':projects , 
+                 'search_query':search_query, 
+                 'paginator':paginator }
       return render(request,'projects/projects.html', context )
 
 
