@@ -3,8 +3,7 @@ from .models import Project ,Tag
 from django.contrib.auth.decorators import login_required
 from .forms import ProjectForm
 from django.contrib import messages
-from .utils import searchProjects
-from django.core.paginator import Paginator , PageNotAnInteger , EmptyPage # 2st = actually a TypeOfError. 3st = TypeOfError
+from .utils import searchProjects, pagination
 
 
 
@@ -22,28 +21,23 @@ def base(request):
 
 
 def projects(request):
-      projects, search_query = searchProjects(request) # serch_query is content user searched in search bar 
+      projects, search_query = searchProjects(request) 
+      # serch_query is content user searched in search bar 
 
-      results = 3 
-      page = request.GET.get('page') # get page number from front end 
-      paginator = Paginator(projects, results) # each page 3 project 
-      try: 
-            projects = paginator.page(page) # get projects of user choosed page
-
-      except PageNotAnInteger: # if user do not choose wich page 
-            # set default page to 1st page
-            
-            page = 1 
-            projects = paginator.page(page) # get projects of user choosed page
-      except EmptyPage : 
-            # if user search for page is not exist
-            page = paginator.num_pages # set page to last page
-            projects = paginator.page(page)
-
+      projects, paginator, custom_range = pagination(request, projects)
       
-      context = {'projects':projects , 
-                 'search_query':search_query, 
-                 'paginator':paginator }
+      if custom_range != 0 : # if not 0 , means we have range
+
+            context = {'projects':projects , 
+                  'search_query':search_query, 
+                  'customRange':custom_range, # we send custom range
+                  }
+      else: # NO custom range 
+            context = {'projects':projects , 
+                  'search_query':search_query, 
+                  'customRange':paginator.page_range, # we send that paginator real range 
+                  }
+
       return render(request,'projects/projects.html', context )
 
 

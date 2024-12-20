@@ -80,26 +80,28 @@
     </div>
   </section>
   {% comment %} pagination {% endcomment %}
-  <div class="pagination">
-    <ul class="container">
-      {% if projects.has_previous %}
-        <li><a href="?page={{projects.previous_page_number}}" class="btn btn--link"> Prev</a></li>
-      {% endif %}
-
-      {%for page in paginator.page_range %}
-        {% if page == projects.number %}
-          <li><a href="?page={{page}}" class="btn btn--link btn--sub">{{page}}</a></li>
-        {% else %}
-          <li><a href="?page={{page}}" class="btn btn--link">{{page}}</a></li>
+  {% if projects.has_other_pages %}
+    <div class="pagination">
+      <ul class="container">
+        {% if projects.has_previous %}
+          <li><a href="?page={{projects.previous_page_number}}" class="btn btn--link"> Prev</a></li>
         {% endif %}
-      {% endfor %}
 
-      {% if projects.has_next %}
-        <li><a href="?page={{ projects.next_page_number }}"
-           class="btn btn--link">Next </a></li>
-      {% endif %}
-    </ul>x
-  </div>
+        {%for page in customRange %}
+          {% if page == projects.number %}
+            <li><a href="?page={{page}}" class="btn btn--link btn--sub">{{page}}</a></li>
+          {% else %}
+            <li><a href="?page={{page}}" class="btn btn--link">{{page}}</a></li>
+          {% endif %}
+        {% endfor %}
+
+        {% if projects.has_next %}
+          <li><a href="?page={{ projects.next_page_number }}"
+            class="btn btn--link">Next </a></li>
+        {% endif %}
+      </ul>x
+    </div>
+    {% endif %}
 </main>
 
 {% endblock content %}
