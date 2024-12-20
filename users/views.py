@@ -5,7 +5,7 @@ from .models import Profile
 from django.contrib import messages
 from .forms import CustomUCF, ProfileForm, SkillForm
 from django.contrib.auth.decorators import login_required
-from .utils import searchProfiles
+from .utils import searchProfiles, pagination
 
 # log out
 def logOutPage(request):
@@ -80,7 +80,24 @@ def register(request):
 # profiles
 def profiles(request):
       profiles , search_query = searchProfiles(request)
-      context = {'profiles':profiles, "search_query":search_query } 
+      profiles, paginator, custom_range =   pagination(request, profiles) 
+      
+      if custom_range != 0 : # if not 0 , means we have range
+            context = {
+                  'profiles':profiles, 
+                  'search_query':search_query ,
+                  'customRange': custom_range,
+                  }
+            
+            
+      else: # NO custom range 
+            context = {
+                  'profiles':profiles, 
+                  'search_query':search_query ,
+                  'customRange':paginator.page_range,
+                  } 
+            
+
       return render(request, 'users/profiles.html',context)
 
 # single user profile

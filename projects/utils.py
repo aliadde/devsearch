@@ -31,20 +31,19 @@ def pagination(request ,projects):
 def pagination_Range(paginator, page):
 
       # for lots of pages
-      left_index = int(page) - 4
+      left_index = int(page) - 4 # we want three pages before current page
        
-      if left_index < 1 : 
+      if left_index < 1 :
             left_index = 1 
 
-      right_index = int(page) + 4
+      right_index = int(page) + 4 # we want three pages after current page
 
-      if right_index > paginator.num_pages :
-            right_index = int(paginator.num_pages) + 1
+      if right_index > paginator.num_pages : 
+            right_index = int(paginator.num_pages) + 1  #  + 1 because range do not include number is endof range(, end) 
       
-      custom_range = range(left_index, right_index)
+      custom_range = range(left_index, right_index) # we create a range for that
       
       return custom_range
-
 
 def searchProjects(request):
       search_query = ''
