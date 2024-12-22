@@ -26,7 +26,7 @@ def loginPage(request):
       if request.user.is_authenticated :
             return redirect('profiles')
       elif request.method == 'POST':
-            username = request.POST['username']
+            username = request.POST['username'].lower()
             password = request.POST['password']
             print(username)
             print(password)
@@ -40,7 +40,7 @@ def loginPage(request):
             if user is not None :
                   login(request,user)
                   
-                  return redirect('profiles')
+                  return redirect(request.GET['next'] if 'next' in request.GET else 'account')
             else:
                   messages.error(request ,'password or username dow not exist')
 

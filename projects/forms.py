@@ -1,6 +1,6 @@
 from django import forms
 from django.forms  import widgets
-from .models import Project
+from .models import Project ,Review
 
 class ProjectForm(forms.ModelForm):
       class Meta:
@@ -12,7 +12,6 @@ class ProjectForm(forms.ModelForm):
             }
 
             
-      # آخرم به زور فهمیدم چیشد توی این کده پایین 
       def __init__(self,*args, **kwargs):
             super(ProjectForm, self).__init__(*args,**kwargs)
             for name , field in self.fields.items():
@@ -23,4 +22,21 @@ class ProjectForm(forms.ModelForm):
                         }
                   )
 
+class ReviewForm(forms.ModelForm):
+      class Meta :
+            model = Review
+            fields = ['value', 'body']
+            labels = {
+                  'value':'vote',
+                  'body': 'comment'
+            }
 
+      def __init__(self,*args, **kwargs):
+            super(ReviewForm, self).__init__(*args,**kwargs)
+            for name , field in self.fields.items():
+                  field.widget.attrs.update(
+                        {
+                              'class':"input input--text" ,
+                               'id':"formInput#text" ,
+                        }
+                  )

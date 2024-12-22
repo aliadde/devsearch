@@ -43,13 +43,31 @@ class Project(models.Model):
       
       class Meta :
             ordering = [
-                  'created'
+                  '-vote_ratio',
+                  '-vote_total', # if vote_ration in projects same number, number of review is matter for us
+                  'title'
             ]
+      
+      @property
+      def reviewers(self):
+            queryset = self.revuew_set.all().values_list('owner__id',flat=True)
+            return queryset
+      
+      
+      @property
+      def get_vote_count(self):
+            reviews = self.review_set.all()
+            up_votes = reviews.filter(value='Up').count() # count of up votes
+            total_votes = reviews.count() # how meny queryset for reviews 
+
+            ration = (up_votes / total_votes)*100
+
+            self.vote_total = total_votes
+            self.vote_ratio = ration
+            self.save()
 
 
-
-
-
+ 
 
       # Review table 
 class Review(models.Model):
@@ -57,7 +75,8 @@ class Review(models.Model):
             ('Up' ,'Up Vote'),
             ('Down' ,'Down Vote')
       )
-      # Own =
+      
+      owner =  models.ForeignKey( Profile, on_delete=models.CASCADE, null=True, blank=True)
       project = models.ForeignKey(Project, on_delete=models.CASCADE)
       body = models.TextField(null=True, blank=True)
       value = models.CharField(max_length=2000 ,null=True, blank=True, choices=VOTE_TYPES)
@@ -66,7 +85,12 @@ class Review(models.Model):
 
       def __str__(self):
             return self.value
-      
+      class Meta: 
+            unique_together = [[ "project","owner" ]]
+                   # owner and project have to be unique
+            
+
+            
       
 class Tag(models.Model):
       name = models.CharField(max_length=200)
@@ -74,4 +98,4 @@ class Tag(models.Model):
       id = models.UUIDField(default=uuid.uuid4 , unique=True , primary_key=True , editable=False )  
       
       def __str__(self):
-            return self.name      
+            return  self.name      

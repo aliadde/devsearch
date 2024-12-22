@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from .models import Project ,Tag
 from django.contrib.auth.decorators import login_required
-from .forms import ProjectForm
+from .forms import ProjectForm, ReviewForm
 from django.contrib import messages
 from .utils import searchProjects, pagination
 
@@ -43,9 +43,26 @@ def projects(request):
 
 def singlepage(request, id ):
       # method get : get that projects has that id 
-      project = Project.objects.get(id=id)
-      tags = project.tags.all()
-      return render(request, 'projects/singleproject.html',{'project': project ,'tags':tags} )
+      projectobj = Project.objects.get(id=id)
+      tags = projectobj.tags.all()
+      form = ReviewForm() # instance of REviewForm in forms.py
+      if request.method == 'POST':
+            form = ReviewForm(request.POST)
+            review = form.save(commit=False)
+            review.project = projectobj # Foreignkey(Project, ... ) so need instance of project 
+            review.owner = request.user.profile # foreignkey(Profile , ...) so neeed instance of profile of user sub minting
+            review.save() 
+
+            projectobj.get_vote_count
+            messages.success(request, 'Thank You To Leave Message and improve our community')
+            # updating vote ration 
+            return redirect('singleproject', id=projectobj.id)
+            
+
+      
+      context = {'project': projectobj ,'tags':tags ,'form':form}
+      
+      return render(request, 'projects/singleproject.html',context )
 
 
 @login_required(login_url='/login')
