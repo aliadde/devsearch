@@ -199,3 +199,20 @@ def inbox(request):
             "unreadMessages":unread_messages ,
             }
       return render(request, 'users/inbox.html', context )
+
+
+
+@login_required(login_url ='login') 
+def view_message(request , pk):
+      profile = request.user.profile # get profile of user is sending request
+
+      message_request =  profile.messages.get(id=pk) # lets get user is logged in messages
+      if not message_request.is_read : # if message not seen yet
+            message_request.is_read = True # make it read 
+            message_request.save() # save in table
+      sender_profile = message_request.sender
+      context = {
+            "messageRequest":message_request, 
+            "senderProfile":sender_profile,     
+                 }
+      return render(request,"users/message.html", context)
