@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
-from .models import Profile
+from .models import Profile ,Message
 from django.contrib import messages
 from .forms import CustomUCF, ProfileForm, SkillForm
 from django.contrib.auth.decorators import login_required
@@ -186,5 +186,16 @@ def deleteSkill(request, pk):
 
 @login_required(login_url ='login') 
 def inbox(request):
-      context = {}
+      profile = request.user.profile # get profile of user is sending request
+
+      message_requests =  profile.messages.all() # lets get user is logged in messages
+      # if remmeber, we can now acces to child with just .messages, becauseof ralated_name= messages
+      
+      unread_messages = message_requests.filter(is_read=False).count() # messages Not Read (just count)
+      
+      
+      context = {
+            "messageRequests":message_requests ,
+            "unreadMessages":unread_messages ,
+            }
       return render(request, 'users/inbox.html', context )
