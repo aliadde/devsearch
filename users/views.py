@@ -26,8 +26,8 @@ def loginPage(request):
       if request.user.is_authenticated :
             return redirect('profiles')
       elif request.method == 'POST':
-            username = request.POST['username'].lower()
-            password = request.POST['password']
+            username = request.POST['username'].lower().strip()
+            password = request.POST['password'] 
             print(username)
             print(password)
             try:
@@ -57,8 +57,8 @@ def register(request):
             if form.is_valid() :
                   # its not gonna save completly
                   user = form.save(commit=False)
-                  # check no one in database with same username (lowercase)
-                  user.username = user.username.lower()
+                  # check no one in database with same username (lowercase) remove white space around username
+                  user.username = user.username.lower().strip()
                   # then save
                   user.save()
 
