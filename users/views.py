@@ -3,7 +3,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
 from .models import Profile ,Message
 from django.contrib import messages
-from .forms import CustomUCF, ProfileForm, SkillForm
+from .forms import CustomUCF, ProfileForm, SkillForm , CreateMessage
 from django.contrib.auth.decorators import login_required
 from .utils import searchProfiles, pagination
 
@@ -216,3 +216,36 @@ def view_message(request , pk):
             "senderProfile":sender_profile,     
                  }
       return render(request,"users/message.html", context)
+
+def create_message(request, pk):
+      recipient = Profile.objects.get(id=pk) # recepient
+      form = CreateMessage() # from forms.py
+      
+      try:
+            sender = request.user.profile # sender who is in the site
+      except:
+            sender = None
+
+      if request.method =='POST':
+            form  = CreateMessage(request.POST) # instance of form
+
+            if form.is_valid():
+
+                  message = form.save(commit=False)
+                  message.sender = sender
+                  message.recipient = recipient
+                   
+                  if sender: # if have been logged in need to be set manually
+                        message.name = sender.name 
+                        message.email = sender.email
+
+                  message.save()
+                  messages.success(request, 'Message Sent')
+                  return redirect('userprofile',pk=recipient.id)
+            else:
+                  messages.error(request, "Messsage is not valid")
+                  return redirect('create-message',pk=recipient.id)
+            
+
+      context = {"profile":recipient , "form":form}
+      return render(request, 'users/message_form.html',context)

@@ -84,7 +84,10 @@ class Message(models.Model):
       # we always need unique id to prrvent from interuption in getting data 
 
       def __str__(self):
-            return self.subject
+            if self.subject == None:
+                  return self.body[0:20]
+            else:
+                  return self.subject
 
       class Meta: 
             ordering = [
