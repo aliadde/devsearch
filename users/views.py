@@ -52,9 +52,11 @@ def register(request):
             form = CustomUCF(request.POST)
             if form.errors :
                   for error in form.errors:
-                        
-                        print(error)
-            if form.is_valid() :
+                        print(form.errors)
+                        messages.error(request, error)
+                  return redirect('register')
+
+            elif form.is_valid() :
                   # its not gonna save completly
                   user = form.save(commit=False)
                   # check no one in database with same username (lowercase) remove white space around username
@@ -63,13 +65,11 @@ def register(request):
                   user.save()
 
                   messages.success(request, 'User account created' )
-                  redirect('profiles')
                   # then log in 
                   login(request, user)
-                  messages.success(request,'User account created')
                   return redirect('editaccount')
             else:       
-                  print('get request')
+                  print('the problem in creating account')
                   
 
       form = CustomUCF()
@@ -184,6 +184,7 @@ def deleteSkill(request, pk):
       context = {'object':skill}
       return render(request, 'delete.html', context)
 
+
 @login_required(login_url ='login') 
 def inbox(request):
       profile = request.user.profile # get profile of user is sending request
@@ -199,8 +200,6 @@ def inbox(request):
             "unreadMessages":unread_messages ,
             }
       return render(request, 'users/inbox.html', context )
-
-
 
 @login_required(login_url ='login') 
 def view_message(request , pk):

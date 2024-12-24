@@ -93,7 +93,7 @@
                 <div class="column">
                   {%for project in profile.project_set.all%}
                         <div class="card project">
-                        <a href="/single/{{project.id}}" class="project">
+                        <a href="/project/single/{{project.id}}" class="project">
                         <img class="project__thumbnail" src="{{ project.featured_image.url }}" alt="project thumbnail" />
                         <div class="card__body">
                               <h3 class="project__title">{{project.title}}</h3>

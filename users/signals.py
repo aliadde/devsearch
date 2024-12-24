@@ -2,14 +2,9 @@ from django.contrib.auth.models import User
 from .models import  Profile , Skill 
 from django.db.models.signals import post_save,post_delete
 from django.dispatch import receiver
-# __
-
-# try:
-#     comment = User.objects.get(pk=user_id)
-# except User.DoesNotExist:
-#     user = None
-
-# ___
+# email sending 
+from django.core.mail import send_mail
+from django.conf import settings
 
 #signal for the profile save      
 def createprofile(sender , instance, created , **kwargs):
@@ -23,6 +18,17 @@ def createprofile(sender , instance, created , **kwargs):
                   email = user.email,
             )
 
+      subject = 'account created.'
+      message = 'You have been Created.\n We are so happy to you joind us'
+      send_mail(
+            subject , 
+            message ,
+            settings.EMAIL_HOST_USER , 
+            [profile.email] ,
+            fail_silently=False,
+      )
+
+
 
 def updateUser(sender,instance ,created, **kwargs):
       profile = instance
@@ -33,6 +39,16 @@ def updateUser(sender,instance ,created, **kwargs):
             user.username = profile.username
             user.save()
             print(user.username) 
+
+      subject = 'account updated.'
+      message = 'You have been Updated your profile'
+      send_mail(
+            subject , 
+            message ,
+            settings.EMAIL_HOST_USER , 
+            [profile.email] ,
+            fail_silently=False,
+      )
  
 
 def profileDelete(sender,instance , **kwargs ):

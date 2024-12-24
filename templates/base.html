@@ -52,12 +52,12 @@
   </header>
 
   {% if messages %}
-  {% for message in messages %}
-  <div class="alert alert--{{message.tags}}" style="z-index: 10;">
-    <p class="alert__message" style="z-index: 10;">{{ message }}</p>
-    <button class="alert__close" style="z-index: 10;">X</button>
-  </div>
-  {% endfor %}
+    {% for message in messages %}
+      <div class="alert alert--{{message.tags}}" style="z-index: 10;">
+        <p class="alert__message" style="z-index: 10;">{{ message }}</p>
+        <button class="alert__close" style="z-index: 10;">X</button>
+      </div>
+    {% endfor %}
   {% endif %}
 
   {% block content %}

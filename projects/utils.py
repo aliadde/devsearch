@@ -4,7 +4,7 @@ from django.core.paginator import Paginator , PageNotAnInteger , EmptyPage # 2st
 
 def pagination(request ,projects):
 
-      results = 3  # how much project shuld be shown in each page
+      results = 9 # how much project shuld be shown in each page
       page = request.GET.get('page') # get page number from front end 
       paginator = Paginator(projects, results) # each page 3 project 
       try: 
